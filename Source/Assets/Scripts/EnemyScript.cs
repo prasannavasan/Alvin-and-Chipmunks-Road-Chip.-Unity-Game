@@ -1,47 +1,78 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class EnemyScript : MonoBehaviour
 {
+	private bool hasSpawn;
+	private MoveScript moveScript;
 	private WeaponScript[] weapons;
 	
 	void Awake()
 	{
-		// Retrieve the weapon only once
+
 		weapons = GetComponentsInChildren<WeaponScript>();
+		
+	
+		moveScript = GetComponent<MoveScript>();
+	}
+	
+
+	void Start()
+	{
+		hasSpawn = false;
+		
+	
+		GetComponent<Collider2D>().enabled = false;
+
+		moveScript.enabled = false;
+	
+		foreach (WeaponScript weapon in weapons)
+		{
+			weapon.enabled = false;
+		}
 	}
 	
 	void Update()
 	{
-		foreach (WeaponScript weapon in weapons)
+	
+		if (hasSpawn == false)
 		{
-			// Auto-fire
-			if (weapon != null && weapon.CanAttack)
+			if (GetComponent<Renderer>().IsVisibleFrom(Camera.main))
 			{
-				weapon.Attack(true);
+				Spawn();
+			}
+		}
+		else
+		{
+		
+			foreach (WeaponScript weapon in weapons)
+			{
+				if (weapon != null && weapon.enabled && weapon.CanAttack)
+				{
+					weapon.Attack(true);
+				}
+			}
+			
+		
+			if (GetComponent<Renderer>().IsVisibleFrom(Camera.main) == false)
+			{
+				Destroy(gameObject);
 			}
 		}
 	}
-	void OnCollisionEnter2D(Collision2D collision)
+	
+
+	private void Spawn()
 	{
-		bool damagePlayer = false;
+		hasSpawn = true;
 		
-		// Collision with enemy
-		EnemyScript enemy = collision.gameObject.GetComponent<EnemyScript>();
-		if (enemy != null)
+	
+		GetComponent<Collider2D>().enabled = true;
+	
+		moveScript.enabled = true;
+	
+		foreach (WeaponScript weapon in weapons)
 		{
-			// Kill the enemy
-			HealthScript enemyHealth = enemy.GetComponent<HealthScript>();
-			if (enemyHealth != null) enemyHealth.Damage(enemyHealth.hp);
-			
-			damagePlayer = true;
-		}
-		
-		// Damage the player
-		if (damagePlayer)
-		{
-			HealthScript playerHealth = this.GetComponent<HealthScript>();
-			if (playerHealth != null) playerHealth.Damage(1);
+			weapon.enabled = true;
 		}
 	}
 }
