@@ -62,6 +62,11 @@ public class PlayerScript : MonoBehaviour
 
 		
 	}
+	void OnDestroy()
+	{
+	
+		transform.parent.gameObject.AddComponent<GameOverScript>();
+	}
 	
 	void FixedUpdate()
 	{
