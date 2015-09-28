@@ -20,14 +20,47 @@ public class GameOverScript : MonoBehaviour
 			buttonWidth,
 			buttonHeight
 			),
-			"Retry!"
+			"Replay"
 			)
 			)
 		{
 			// Reload the level
 			Application.LoadLevel("Farm");
 		}
-		
+
+		if (
+			GUI.Button(
+			// Center in X, 1/3 of the height in Y
+			new Rect(
+			Screen.width / 2 - (buttonWidth / 2),
+			(2 * Screen.height / 4) - (buttonHeight / 2),
+			buttonWidth,
+			buttonHeight
+			),
+			"Share Scores"
+			)
+			)
+		{
+			// Reload the level
+			//Application.LoadLevel("Farm");
+		}
+
+		if (
+			GUI.Button(
+			// Center in X, 1/3 of the height in Y
+			new Rect(
+			Screen.width / 2 - (buttonWidth / 2),
+			(2 * Screen.height / 11) - (buttonHeight / 2),
+			buttonWidth,
+			buttonHeight
+			),
+			"Invite"
+			)
+			)
+		{
+			// Reload the level
+			//Application.LoadLevel("Farm");
+		}
 		if (
 			GUI.Button(
 			// Center in X, 2/3 of the height in Y
@@ -37,7 +70,7 @@ public class GameOverScript : MonoBehaviour
 			buttonWidth,
 			buttonHeight
 			),
-			"Back to menu"
+			"Main Menu"
 			)
 			)
 		{
