@@ -5,6 +5,10 @@ public class EnemyScript : MonoBehaviour
 	private bool hasSpawn;
 	private MoveScript moveScript;
 	private WeaponScript[] weapons;
+
+
+
+
 	
 	void Awake()
 	{
@@ -19,8 +23,11 @@ public class EnemyScript : MonoBehaviour
 	void Start()
 	{
 		hasSpawn = false;
+
 		
+
 	
+
 		GetComponent<Collider2D>().enabled = false;
 
 		moveScript.enabled = false;
@@ -30,6 +37,7 @@ public class EnemyScript : MonoBehaviour
 			weapon.enabled = false;
 		}
 	}
+
 	
 	void Update()
 	{
@@ -56,6 +64,7 @@ public class EnemyScript : MonoBehaviour
 		
 			if (GetComponent<Renderer>().IsVisibleFrom(Camera.main) == false)
 			{
+
 				Destroy(gameObject);
 			}
 		}
